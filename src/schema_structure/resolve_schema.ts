@@ -45,5 +45,5 @@ export type ResolveSchema<
               : Value extends UnionArrayType<BooleanType | IntegerType>
                 ? boolean | number
                 : Value extends ObjectType<infer Properties>
-                  ? {[Key in keyof Properties]: ResolveSchema<Schema, Properties[Key]>}
+                  ? {[Key in keyof Properties]?: ResolveSchema<Schema, Properties[Key]>}
                   : unknown;
