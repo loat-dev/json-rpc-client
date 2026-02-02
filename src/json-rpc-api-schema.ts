@@ -1,5 +1,4 @@
 import { OpenRPCDocument } from './open_rpc/spec.ts';
-import { OpenRpcSchema } from './schema_structure/open_rpc_schema.ts';
 
 export default ({
   "components": {
