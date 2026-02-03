@@ -43,7 +43,6 @@ export class Client<Schema extends OpenRpcSchema> {
     resolve: (value: unknown) => void;
     reject: (error: Error) => void;
   }>();
-  private connectionPromise: Promise<void>;
 
   constructor(
     address: string,
@@ -56,27 +55,6 @@ export class Client<Schema extends OpenRpcSchema> {
       headers: {
         'Authorization': `Bearer ${options.token}`
       }
-    });
-
-    // Setup connection promise
-    this.connectionPromise = new Promise((resolve, reject) => {
-      const onOpen = () => {
-        cleanup();
-        resolve();
-      };
-
-      const onError = (error: Event) => {
-        cleanup();
-        reject(new Error(`WebSocket connection failed: ${error}`));
-      };
-
-      const cleanup = () => {
-        this.ws.removeEventListener('open', onOpen);
-        this.ws.removeEventListener('error', onError);
-      };
-
-      this.ws.addEventListener('open', onOpen);
-      this.ws.addEventListener('error', onError);
     });
 
     // Setup message handler
