@@ -81,7 +81,7 @@ export class Client<Schema extends OpenRpcSchema> {
     return this.schema.openrpc;
   }
 
-  public async call<
+  public call<
     Name extends ExtractMethodNames<Schema>,
     Method = ExtractMethod<Schema, Name>
   >(
@@ -89,7 +89,6 @@ export class Client<Schema extends OpenRpcSchema> {
     ...params: ExtractParams<Schema, Method>
   ): Promise<ExtractResult<Schema, Method>> {
     // Wait for connection to be established
-    await this.connectionPromise;
 
     // Check if connection is still open
     if (this.ws.readyState !== WebSocket.OPEN) {
@@ -203,11 +202,6 @@ export class Client<Schema extends OpenRpcSchema> {
       return methods.find((m) => m.name === methodName);
     }
     return undefined;
-  }
-
-  // Public API for connection management
-  public waitForConnection(): Promise<void> {
-    return this.connectionPromise;
   }
 
   public close(code?: number, reason?: string): void {

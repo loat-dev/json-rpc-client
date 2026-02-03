@@ -1,4 +1,4 @@
-import { OpenRPCDocument } from './open_rpc/spec.ts';
+import { OpenRpcDocument } from './open_rpc/spec.ts';
 
 export default ({
   "components": {
@@ -1542,4 +1542,4 @@ export default ({
     }
   ],
   "openrpc": "1.3.2"
-} as const) satisfies OpenRPCDocument /* OpenRpcSchema */;
+} as const) satisfies OpenRpcDocument /* OpenRpcSchema */;

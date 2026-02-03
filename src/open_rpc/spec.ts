@@ -9,7 +9,7 @@
 /**
  * Supported OpenRPC versions as per the specification.
 */
-export type OpenRPCVersion = "1.3.2" | "1.3.1" | "1.3.0" | "1.2.6" | "1.2.5" | "1.2.4" | "1.2.3" | "1.2.2" | "1.2.1" | "1.2.0" | "1.1.12" | "1.1.11" | "1.1.10" | "1.1.9" | "1.1.8" | "1.1.7" | "1.1.6" | "1.1.5" | "1.1.4" | "1.1.3" | "1.1.2" | "1.1.1" | "1.1.0" | "1.0.0" | "1.0.0-rc1" | "1.0.0-rc0";
+export type OpenRpcVersion = "1.3.2" | "1.3.1" | "1.3.0" | "1.2.6" | "1.2.5" | "1.2.4" | "1.2.3" | "1.2.2" | "1.2.1" | "1.2.0" | "1.1.12" | "1.1.11" | "1.1.10" | "1.1.9" | "1.1.8" | "1.1.7" | "1.1.6" | "1.1.5" | "1.1.4" | "1.1.3" | "1.1.2" | "1.1.1" | "1.1.0" | "1.0.0" | "1.0.0-rc1" | "1.0.0-rc0";
 
 /**
  * The title of the application.
@@ -758,11 +758,11 @@ export type MetaSchema = string;
 /**
  * The root object of the OpenRPC document.
  */
-export interface OpenRPCDocument {
+export interface OpenRpcDocument {
   /**
    * Specifies the OpenRPC Specification version being used.
    */
-  openrpc : OpenRPCVersion,
+  openrpc : OpenRpcVersion,
   /**
    * Provides metadata about the API.
    */

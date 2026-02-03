@@ -4,14 +4,14 @@
  * Enhancement wrapper function with compile-time $ref validation using TypeScript generics.
  */
 
-import type {OpenRPCDocument} from './spec.ts';
+import type {OpenRpcDocument} from './spec.ts';
 
 
 /**
  * Extract component names by type
  */
 type ExtractComponentNames<
-  Schema extends OpenRPCDocument,
+  Schema extends OpenRpcDocument,
   ComponentType extends string
 > = Schema extends {components : infer Components}
   ? Components extends Record<ComponentType, infer ComponentItems>
@@ -25,14 +25,14 @@ type ExtractComponentNames<
  * Valid $ref string for a given component type
  */
 type ValidRefForComponent<
-  Schema extends OpenRPCDocument,
+  Schema extends OpenRpcDocument,
   ComponentType extends string
 > = `#/components/${ComponentType}/${ExtractComponentNames<Schema, ComponentType>}`;
 
 /**
  * All valid $ref strings for a schema
  */
-type ValidRef<Schema extends OpenRPCDocument> = 
+type ValidRef<Schema extends OpenRpcDocument> = 
   | ValidRefForComponent<Schema, "schemas">
   | ValidRefForComponent<Schema, "contentDescriptors">
   | ValidRefForComponent<Schema, "errors">
@@ -45,7 +45,7 @@ type ValidRef<Schema extends OpenRPCDocument> =
  * Check if a $ref is valid
  */
 type IsValidRef<
-  Schema extends OpenRPCDocument,
+  Schema extends OpenRpcDocument,
   Ref extends string
 > = Ref extends ValidRef<Schema>
   ? true
@@ -55,7 +55,7 @@ type IsValidRef<
  * Recursively collect all invalid $refs from a type
  */
 type CollectInvalidRefs<
-  Schema extends OpenRPCDocument,
+  Schema extends OpenRpcDocument,
   Value
 > = 
   Value extends { $ref: infer Ref }
@@ -73,14 +73,14 @@ type CollectInvalidRefs<
 /**
  * Check if schema has any invalid refs
  */
-type HasInvalidRefs<Schema extends OpenRPCDocument> = [CollectInvalidRefs<Schema, Schema>] extends [never]
+type HasInvalidRefs<Schema extends OpenRpcDocument> = [CollectInvalidRefs<Schema, Schema>] extends [never]
   ? false
   : true;
 
 /**
  * Validated OpenRPC Document type
  */
-export type ValidatedOpenRPCDocument<Schema extends OpenRPCDocument> = HasInvalidRefs<Schema> extends true
+export type ValidatedOpenRPCDocument<Schema extends OpenRpcDocument> = HasInvalidRefs<Schema> extends true
   ? [ 
       'Schema contains invalid $ref(s):',
       CollectInvalidRefs<Schema, Schema>
@@ -94,7 +94,7 @@ export type ValidatedOpenRPCDocument<Schema extends OpenRPCDocument> = HasInvali
  * @param schema The OpenRPC schema with 'as const' assertion
  * @returns The validated schema
  */
-export function validatedOpenRPCDocument<Schema extends OpenRPCDocument>(
+export function validatedOpenRPCDocument<Schema extends OpenRpcDocument>(
   schema : ValidatedOpenRPCDocument<Schema>
 ) : ValidatedOpenRPCDocument<Schema> {
   return schema;
