@@ -1,14 +1,9 @@
 // deno-lint-ignore-file no-explicit-any
 
 /**
- * The OpenRPC Specification defines a standard, programming language-agnostic interface description for JSON-RPC 2.0 APIs.
- * This file contains annotated TypeScript types based on the OpenRPC meta-schema and the specification document.
- */
-
-/**
  * Supported OpenRPC versions as per the specification.
 */
-export type Openrpc = "1.3.2" | "1.3.1" | "1.3.0" | "1.2.6" | "1.2.5" | "1.2.4" | "1.2.3" | "1.2.2" | "1.2.1" | "1.2.0" | "1.1.12" | "1.1.11" | "1.1.10" | "1.1.9" | "1.1.8" | "1.1.7" | "1.1.6" | "1.1.5" | "1.1.4" | "1.1.3" | "1.1.2" | "1.1.1" | "1.1.0" | "1.0.0" | "1.0.0-rc1" | "1.0.0-rc0";
+export type OpenRPCVersion = "1.3.2" | "1.3.1" | "1.3.0" | "1.2.6" | "1.2.5" | "1.2.4" | "1.2.3" | "1.2.2" | "1.2.1" | "1.2.0" | "1.1.12" | "1.1.11" | "1.1.10" | "1.1.9" | "1.1.8" | "1.1.7" | "1.1.6" | "1.1.5" | "1.1.4" | "1.1.3" | "1.1.2" | "1.1.1" | "1.1.0" | "1.0.0" | "1.0.0-rc1" | "1.0.0-rc0";
 
 /**
  * The title of the application.
@@ -57,16 +52,16 @@ export interface ContactObject {
   /**
    * The identifying name of the contact person/organization.
    */
-  name? : ContactObjectName;
+  name? : ContactObjectName,
   /**
    * The email address of the contact person/organization. MUST be in the format of an email address.
    */
-  email? : ContactObjectEmail;
+  email? : ContactObjectEmail,
   /**
    * The URL pointing to the contact information. MUST be in the format of a URL.
    */
-  url? : ContactObjectUrl;
-  [regex: string] : SpecificationExtension | any;
+  url? : ContactObjectUrl,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -86,12 +81,12 @@ export interface LicenseObject {
   /**
    * The license name used for the API.
    */
-  name? : LicenseObjectName;
+  name? : LicenseObjectName,
   /**
    * A URL to the license used for the API. MUST be in the format of a URL.
    */
-  url? : LicenseObjectUrl;
-  [regex: string] : SpecificationExtension | any;
+  url? : LicenseObjectUrl,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -101,28 +96,28 @@ export interface InfoObject {
   /**
    * The title of the application.
    */
-  title : InfoObjectProperties;
+  title : InfoObjectProperties,
   /**
    * A verbose description of the application. GitHub Flavored Markdown syntax MAY be used for rich text representation.
    */
-  description? : InfoObjectDescription;
+  description? : InfoObjectDescription,
   /**
    * A URL to the Terms of Service for the API. MUST be in the format of a URL.
    */
-  termsOfService? : InfoObjectTermsOfService;
+  termsOfService? : InfoObjectTermsOfService,
   /**
    * The version of the OpenRPC document (which is distinct from the OpenRPC Specification version or the API implementation version).
    */
-  version : InfoObjectVersion;
+  version : InfoObjectVersion,
   /**
    * The contact information for the exposed API.
    */
-  contact? : ContactObject;
+  contact? : ContactObject,
   /**
    * The license information for the exposed API.
    */
-  license? : LicenseObject;
-  [regex: string] : SpecificationExtension | any;
+  license? : LicenseObject,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -142,12 +137,12 @@ export interface ExternalDocumentationObject {
   /**
    * A description of the target documentation. GitHub Flavored Markdown syntax MAY be used for rich text representation.
    */
-  description? : ExternalDocumentationObjectDescription;
+  description? : ExternalDocumentationObjectDescription,
   /**
    * The URL for the target documentation. Value MUST be in the format of a URL.
    */
-  url : ExternalDocumentationObjectUrl;
-  [regex: string] : SpecificationExtension | any;
+  url : ExternalDocumentationObjectUrl,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -197,22 +192,22 @@ export interface ServerObjectVariable {
   /**
    * The default value to use for substitution, which SHALL be sent if an alternate value is not supplied.
    */
-  default : ServerObjectVariableDefault;
+  default : ServerObjectVariableDefault,
   /**
    * An optional description for the server variable. GitHub Flavored Markdown syntax MAY be used for rich text representation.
    */
-  description? : ServerObjectVariableDescription;
+  description? : ServerObjectVariableDescription,
   /**
    * An enumeration of string values to be used if the substitution options are from a limited set.
    */
-  enum? : ServerObjectVariableEnum;
-  [k: string] : any;
+  enum? : ServerObjectVariableEnum,
+  [k : string] : any
 }
 
 /**
  * A map between a variable name and its value. The value is passed into the Runtime Expression to produce a server URL.
  */
-export interface ServerObjectVariables { [key: string]: any; }
+export interface ServerObjectVariables { [key : string] : any }
 
 /**
  * An object representing a Server.
@@ -221,30 +216,30 @@ export interface ServerObject {
   /**
    * A URL to the target host. This URL supports Server Variables and MAY be relative.
    */
-  url : ServerObjectUrl;
+  url : ServerObjectUrl,
   /**
    * A name to be used as the canonical name for the server.
    */
-  name? : ServerObjectName;
+  name? : ServerObjectName,
   /**
    * An optional string describing the host designated by the URL.
    */
-  description? : ServerObjectDescription;
+  description? : ServerObjectDescription,
   /**
    * A short summary of what the server is.
    */
-  summary? : ServerObjectSummary;
+  summary? : ServerObjectSummary,
   /**
    * A map between a variable name and its value.
    */
-  variables? : ServerObjectVariables;
-  [regex: string] : SpecificationExtension | any;
+  variables? : ServerObjectVariables,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
  * Placeholder for always false schema (used in JSON Schema definitions).
  */
-type AlwaysFalse = any;
+// type AlwaysFalse = any;
 
 /**
  * An array of Server Objects, which provide connectivity information to a target server.
@@ -283,16 +278,16 @@ export interface TagObject {
   /**
    * The name of the tag.
    */
-  name : TagObjectName;
+  name : TagObjectName,
   /**
    * A short description for the tag.
    */
-  description? : TagObjectDescription;
+  description? : TagObjectDescription,
   /**
    * Additional external documentation for this tag.
    */
-  externalDocs? : ExternalDocumentationObject;
-  [regex: string] : SpecificationExtension | any;
+  externalDocs? : ExternalDocumentationObject,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -307,7 +302,7 @@ export interface ReferenceObject {
   /**
    * The reference string.
    */
-  $ref : $Ref;
+  $ref : $Ref
 }
 
 /**
@@ -321,18 +316,17 @@ export type TagOrReference = TagObject | ReferenceObject;
 export type MethodObjectTags = TagOrReference[];
 
 /**
- * Format the server expects the params. Defaults to 'either'.
- * @default either
+ * Format the server expects the params.
  */
 export type MethodObjectParamStructure = "by-position" | "by-name" | "either";
 
 /**
- * Unique string used to identify the content descriptor.
+ * The name of the content descriptor.
  */
 export type ContentDescriptorObjectName = string;
 
 /**
- * A verbose explanation of the content descriptor. GitHub Flavored Markdown syntax MAY be used.
+ * A verbose explanation of the content descriptor.
  */
 export type ContentDescriptorObjectDescription = string;
 
@@ -342,278 +336,49 @@ export type ContentDescriptorObjectDescription = string;
 export type ContentDescriptorObjectSummary = string;
 
 /**
- * $id in JSON Schema.
- */
-export type $Id = string;
-
-/**
- * $schema in JSON Schema.
- */
-export type $Schema = string;
-
-/**
- * $comment in JSON Schema.
- */
-export type $Comment = string;
-
-/**
- * Title in JSON Schema.
- */
-export type Title = string;
-
-/**
- * Description in JSON Schema.
- */
-export type Description = string;
-
-/**
- * Placeholder for always true schema.
- */
-type AlwaysTrue = any;
-
-/**
- * readOnly in JSON Schema.
- */
-export type ReadOnly = boolean;
-
-/**
- * examples in JSON Schema.
- */
-export type Examples = AlwaysTrue[];
-
-/**
- * multipleOf in JSON Schema.
- */
-export type MultipleOf = number;
-
-/**
- * maximum in JSON Schema.
- */
-export type Maximum = number;
-
-/**
- * exclusiveMaximum in JSON Schema.
- */
-export type ExclusiveMaximum = number;
-
-/**
- * minimum in JSON Schema.
- */
-export type Minimum = number;
-
-/**
- * exclusiveMinimum in JSON Schema.
- */
-export type ExclusiveMinimum = number;
-
-/**
- * Non-negative integer.
- */
-export type NonNegativeInteger = number;
-
-/**
- * Non-negative integer defaulting to zero.
- */
-export type NonNegativeIntegerDefaultZero = number;
-
-/**
- * pattern in JSON Schema.
- */
-export type Pattern = string;
-
-/**
- * Array of JSON Schemas.
- */
-export type SchemaArray = JSONSchema[];
-
-/**
- * items in JSON Schema. Defaults to true.
- * @default true
- */
-export type Items = JSONSchema | SchemaArray;
-
-/**
- * uniqueItems in JSON Schema.
- */
-export type UniqueItems = boolean;
-
-/**
- * String type.
- */
-export type StringDoaGddGA = string;
-
-/**
- * Array of strings. Defaults to [].
- * @default []
- */
-export type StringArray = StringDoaGddGA[];
-
-/**
- * Definitions in JSON Schema. Defaults to {}.
- * @default {}
- */
-export interface Definitions { [key: string]: any; }
-
-/**
- * Properties in JSON Schema. Defaults to {}.
- * @default {}
- */
-export interface Properties { [key: string]: any; }
-
-/**
- * Pattern properties in JSON Schema. Defaults to {}.
- * @default {}
- */
-export interface PatternProperties { [key: string]: any; }
-
-/**
- * Dependencies set in JSON Schema.
- */
-export type DependenciesSet = JSONSchema | StringArray;
-
-/**
- * Dependencies in JSON Schema. Defaults to {}.
- * @default {}
- */
-export interface Dependencies { [key: string]: any; }
-
-/**
- * enum in JSON Schema.
- */
-export type Enum = AlwaysTrue[];
-
-/**
- * Simple types in JSON Schema.
- */
-export type SimpleTypes = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
-
-/**
- * Array of simple types.
- */
-export type ArrayOfSimpleTypes = SimpleTypes[];
-
-/**
- * type in JSON Schema.
- */
-export type Type = SimpleTypes | ArrayOfSimpleTypes;
-
-/**
- * format in JSON Schema.
- */
-export type Format = string;
-
-/**
- * contentMediaType in JSON Schema.
- */
-export type ContentMediaType = string;
-
-/**
- * contentEncoding in JSON Schema.
- */
-export type ContentEncoding = string;
-
-/**
- * JSON Schema Object based on Draft 07.
- */
-export interface JSONSchemaObject {
-  $id? : $Id;
-  $schema? : $Schema;
-  $ref? : $Ref;
-  $comment? : $Comment;
-  title? : Title;
-  description? : Description;
-  default? : AlwaysTrue;
-  readOnly? : ReadOnly;
-  examples? : Examples;
-  multipleOf? : MultipleOf;
-  maximum? : Maximum;
-  exclusiveMaximum? : ExclusiveMaximum;
-  minimum? : Minimum;
-  exclusiveMinimum? : ExclusiveMinimum;
-  maxLength? : NonNegativeInteger;
-  minLength? : NonNegativeIntegerDefaultZero;
-  pattern? : Pattern;
-  additionalItems? : JSONSchema;
-  items? : Items;
-  maxItems? : NonNegativeInteger;
-  minItems? : NonNegativeIntegerDefaultZero;
-  uniqueItems? : UniqueItems;
-  contains? : JSONSchema;
-  maxProperties? : NonNegativeInteger;
-  minProperties? : NonNegativeIntegerDefaultZero;
-  required? : StringArray;
-  additionalProperties? : JSONSchema;
-  definitions? : Definitions;
-  properties? : Properties;
-  patternProperties? : PatternProperties;
-  dependencies? : Dependencies;
-  propertyNames? : JSONSchema;
-  const? : AlwaysTrue;
-  enum? : Enum;
-  type? : Type;
-  format? : Format;
-  contentMediaType? : ContentMediaType;
-  contentEncoding? : ContentEncoding;
-  if? : JSONSchema;
-  then? : JSONSchema;
-  else? : JSONSchema;
-  allOf? : SchemaArray;
-  anyOf? : SchemaArray;
-  oneOf? : SchemaArray;
-  not? : JSONSchema;
-  [k: string] : any;
-}
-
-/**
- * JSON Schema Boolean (always valid if true, never if false).
- */
-export type JSONSchemaBoolean = boolean;
-
-/**
- * JSON Schema (object or boolean). Defaults to {}.
- * @default {}
- */
-export type JSONSchema = JSONSchemaObject | JSONSchemaBoolean;
-
-/**
- * Specifies if the parameter is required or not. Defaults to false.
+ * Indicates if this parameter is required.
  */
 export type ContentDescriptorObjectRequired = boolean;
 
 /**
- * Specifies whether the content descriptor is deprecated. Defaults to false.
+ * Specifies the schema for this content descriptor.
+ */
+export type ContentDescriptorObjectSchema = any;
+
+/**
+ * Indicates if this content descriptor is deprecated.
  */
 export type ContentDescriptorObjectDeprecated = boolean;
 
 /**
- * Describes a single request or response content descriptor.
+ * Describes a parameter or result.
  */
 export interface ContentDescriptorObject {
   /**
-   * Unique string used to identify the content descriptor.
+   * The name of the content descriptor.
    */
-  name : ContentDescriptorObjectName;
+  name : ContentDescriptorObjectName,
   /**
    * A verbose explanation of the content descriptor.
    */
-  description? : ContentDescriptorObjectDescription;
+  description? : ContentDescriptorObjectDescription,
   /**
    * A short summary of the content descriptor.
    */
-  summary? : ContentDescriptorObjectSummary;
+  summary? : ContentDescriptorObjectSummary,
   /**
-   * The schema defining the type used for the content descriptor.
+   * Indicates if this parameter is required.
    */
-  schema : JSONSchema;
+  required? : ContentDescriptorObjectRequired,
   /**
-   * Specifies if the parameter is required or not. Defaults to false.
+   * Specifies the schema for this content descriptor.
    */
-  required? : ContentDescriptorObjectRequired;
+  schema : ContentDescriptorObjectSchema,
   /**
-   * Specifies whether the content descriptor is deprecated. Defaults to false.
+   * Indicates if this content descriptor is deprecated.
    */
-  deprecated? : ContentDescriptorObjectDeprecated;
-  [regex: string] : SpecificationExtension | any;
+  deprecated? : ContentDescriptorObjectDeprecated,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -622,27 +387,27 @@ export interface ContentDescriptorObject {
 export type ContentDescriptorOrReference = ContentDescriptorObject | ReferenceObject;
 
 /**
- * A list of parameters that are applicable for this method. The list MUST NOT include duplicated parameters.
+ * A list of parameters that are applicable for this method.
  */
 export type MethodObjectParams = ContentDescriptorOrReference[];
 
 /**
  * The expected result descriptor.
  */
-export type MethodObjectResult = ContentDescriptorObject | ReferenceObject;
+export type MethodObjectResult = ContentDescriptorOrReference;
 
 /**
- * A Number that indicates the error type that occurred. This MUST be an integer.
+ * A Number that indicates the error type that occurred.
  */
 export type ErrorObjectCode = number;
 
 /**
- * A String providing a short description of the error. The message SHOULD be limited to a concise single sentence.
+ * A String providing a short description of the error.
  */
 export type ErrorObjectMessage = string;
 
 /**
- * A Primitive or Structured value that contains additional information about the error. This may be omitted.
+ * A Primitive or Structured value that contains additional information about the error.
  */
 export type ErrorObjectData = any;
 
@@ -653,15 +418,16 @@ export interface ErrorObject {
   /**
    * A Number that indicates the error type that occurred.
    */
-  code : ErrorObjectCode;
+  code : ErrorObjectCode,
   /**
    * A String providing a short description of the error.
    */
-  message : ErrorObjectMessage;
+  message : ErrorObjectMessage,
   /**
    * A Primitive or Structured value that contains additional information about the error.
    */
-  data? : ErrorObjectData;
+  data? : ErrorObjectData,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -675,17 +441,7 @@ export type ErrorOrReference = ErrorObject | ReferenceObject;
 export type MethodObjectErrors = ErrorOrReference[];
 
 /**
- * The canonical name for the link.
- */
-export type LinkObjectName = string;
-
-/**
- * A short summary of the link.
- */
-export type LinkObjectSummary = string;
-
-/**
- * A method to be called when the link is invoked.
+ * The name or URI of the method to be called.
  */
 export type LinkObjectMethod = string;
 
@@ -702,44 +458,33 @@ export type LinkObjectParams = any;
 /**
  * A server object to be used by the linked method.
  */
-export interface LinkObjectServer {
-  url : ServerObjectUrl;
-  name? : ServerObjectName;
-  description? : ServerObjectDescription;
-  summary? : ServerObjectSummary;
-  variables? : ServerObjectVariables;
-  [regex: string] : SpecificationExtension | any;
-}
+export type LinkObjectServer = ServerObject;
 
 /**
- * Defines a link to a target method.
+ * A link from a method call response to another method call.
  */
 export interface LinkObject {
   /**
-   * The canonical name for the link.
+   * The name of the link.
    */
-  name? : LinkObjectName;
-  /**
-   * A short summary of the link.
-   */
-  summary? : LinkObjectSummary;
+  name? : string,
   /**
    * A method to be called when the link is invoked.
    */
-  method? : LinkObjectMethod;
+  method? : LinkObjectMethod,
   /**
    * A description of the link.
    */
-  description? : LinkObjectDescription;
+  description? : LinkObjectDescription,
   /**
    * A map of parameters to be passed to the linked method.
    */
-  params? : LinkObjectParams;
+  params? : LinkObjectParams,
   /**
    * A server object to be used by the linked method.
    */
-  server? : LinkObjectServer;
-  [regex: string] : SpecificationExtension | any;
+  server? : LinkObjectServer,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -789,20 +534,20 @@ export interface ExampleObject {
   /**
    * Short description for the example.
    */
-  summary? : ExampleObjectSummary;
+  summary? : ExampleObjectSummary,
   /**
    * Embedded literal example.
    */
-  value : ExampleObjectValue;
+  value : ExampleObjectValue,
   /**
    * A verbose explanation of the example.
    */
-  description? : ExampleObjectDescription;
+  description? : ExampleObjectDescription,
   /**
    * The name of the example.
    */
-  name : ExampleObjectName;
-  [regex: string] : SpecificationExtension | any;
+  name : ExampleObjectName,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -827,20 +572,20 @@ export interface ExamplePairingObject {
   /**
    * The name of the example pairing.
    */
-  name : ExamplePairingObjectName;
+  name : ExamplePairingObjectName,
   /**
    * A verbose explanation of the example pairing.
    */
-  description? : ExamplePairingObjectDescription;
+  description? : ExamplePairingObjectDescription,
   /**
    * A list of examples for params.
    */
-  params : ExamplePairingObjectParams;
+  params : ExamplePairingObjectParams,
   /**
    * An example for the result.
    */
-  result? : ExamplePairingObjectResult;
-  [k: string] : any;
+  result? : ExamplePairingObjectResult,
+  [k : string] : any
 }
 
 /**
@@ -865,57 +610,57 @@ export interface MethodObject {
   /**
    * The canonical name for the method.
    */
-  name : MethodObjectName;
+  name : MethodObjectName,
   /**
    * A verbose explanation of the method behavior.
    */
-  description? : MethodObjectDescription;
+  description? : MethodObjectDescription,
   /**
    * A short summary of what the method does.
    */
-  summary? : MethodObjectSummary;
+  summary? : MethodObjectSummary,
   /**
    * An alternative server array to service this method.
    */
-  servers? : Servers;
+  servers? : Servers,
   /**
    * A list of tags for API documentation control.
    */
-  tags? : MethodObjectTags;
+  tags? : MethodObjectTags,
   /**
    * Format the server expects the params. Defaults to 'either'.
    * @default either
    */
-  paramStructure? : MethodObjectParamStructure;
+  paramStructure? : MethodObjectParamStructure,
   /**
    * A list of parameters that are applicable for this method.
    */
-  params : MethodObjectParams;
+  params : MethodObjectParams,
   /**
    * The expected result descriptor.
    */
-  result? : MethodObjectResult;
+  result? : MethodObjectResult,
   /**
    * A list of possible error responses.
    */
-  errors? : MethodObjectErrors;
+  errors? : MethodObjectErrors,
   /**
    * A list of possible links from this method call.
    */
-  links? : MethodObjectLinks;
+  links? : MethodObjectLinks,
   /**
    * A list of examples of the usage of this method.
    */
-  examples? : MethodObjectExamples;
+  examples? : MethodObjectExamples,
   /**
    * Declares the method as deprecated. Defaults to false.
    */
-  deprecated? : MethodObjectDeprecated;
+  deprecated? : MethodObjectDeprecated,
   /**
    * Additional external documentation for this method.
    */
-  externalDocs? : ExternalDocumentationObject;
-  [regex: string] : SpecificationExtension | any;
+  externalDocs? : ExternalDocumentationObject,
+  [regex : string] : SpecificationExtension | any
 }
 
 /**
@@ -931,37 +676,37 @@ export type Methods = MethodOrReference[];
 /**
  * Holds a set of reusable Schema Objects.
  */
-export interface SchemaComponents { [key: string]: any; }
+export interface SchemaComponents { [key : string] : any }
 
 /**
  * Holds a set of reusable Link Objects.
  */
-export interface LinkComponents { [key: string]: any; }
+export interface LinkComponents { [key : string] : any }
 
 /**
  * Holds a set of reusable Error Objects.
  */
-export interface ErrorComponents { [key: string]: any; }
+export interface ErrorComponents { [key : string] : any }
 
 /**
  * Holds a set of reusable Example Objects.
  */
-export interface ExampleComponents { [key: string]: any; }
+export interface ExampleComponents { [key : string] : any }
 
 /**
  * Holds a set of reusable Example Pairing Objects.
  */
-export interface ExamplePairingComponents { [key: string]: any; }
+export interface ExamplePairingComponents { [key : string] : any }
 
 /**
  * Holds a set of reusable Content Descriptor Objects.
  */
-export interface ContentDescriptorComponents { [key: string]: any; }
+export interface ContentDescriptorComponents { [key : string] : any }
 
 /**
  * Holds a set of reusable Tag Objects.
  */
-export interface TagComponents { [key: string]: any; }
+export interface TagComponents { [key : string] : any }
 
 /**
  * An element to hold various schemas for the specification.
@@ -970,32 +715,32 @@ export interface Components {
   /**
    * An object to hold reusable Schema Objects.
    */
-  schemas? : SchemaComponents;
+  schemas? : SchemaComponents,
   /**
    * An object to hold reusable Link Objects.
    */
-  links? : LinkComponents;
+  links? : LinkComponents,
   /**
    * An object to hold reusable Error Objects.
    */
-  errors? : ErrorComponents;
+  errors? : ErrorComponents,
   /**
    * An object to hold reusable Example Objects.
    */
-  examples? : ExampleComponents;
+  examples? : ExampleComponents,
   /**
    * An object to hold reusable Example Pairing Objects.
    */
-  examplePairings? : ExamplePairingComponents;
+  examplePairings? : ExamplePairingComponents,
   /**
    * An object to hold reusable Content Descriptor Objects.
    */
-  contentDescriptors? : ContentDescriptorComponents;
+  contentDescriptors? : ContentDescriptorComponents,
   /**
    * An object to hold reusable Tag Objects.
    */
-  tags? : TagComponents;
-  [k: string] : any;
+  tags? : TagComponents,
+  [k : string] : any
 }
 
 /**
@@ -1011,30 +756,30 @@ export interface OpenRPCDocument {
   /**
    * Specifies the OpenRPC Specification version being used.
    */
-  openrpc : Openrpc;
+  openrpc : OpenRPCVersion,
   /**
    * Provides metadata about the API.
    */
-  info : InfoObject;
+  info : InfoObject,
   /**
    * Additional external documentation.
    */
-  externalDocs? : ExternalDocumentationObject;
+  externalDocs? : ExternalDocumentationObject,
   /**
    * An array of Server Objects.
    */
-  servers? : Servers;
+  servers? : Servers,
   /**
    * The available methods for the API.
    */
-  methods : Methods;
+  methods : Methods,
   /**
    * An element to hold various schemas for the specification.
    */
-  components? : Components;
+  components? : Components,
   /**
    * JSON Schema URI.
    */
-  $schema? : MetaSchema;
-  [regex: string] : SpecificationExtension | any;
+  $schema? : MetaSchema,
+  [regex : string] : SpecificationExtension | any
 }
