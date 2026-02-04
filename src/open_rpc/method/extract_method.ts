@@ -1,4 +1,4 @@
-import type { ExtractMethodNames } from './extract_method_names_with_result.ts';
+import type { ExtractMethodNames } from './extract_method_names.ts';
 import type { OpenRpcDocument } from '../open_rpc_document.ts';
 
 /**
