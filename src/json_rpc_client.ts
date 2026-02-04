@@ -3,7 +3,7 @@ import type { ExtractMethodNames } from './open_rpc/method/extract_method_names.
 import type { ExtractParams } from './open_rpc/params/extract_params.ts';
 import type { ExtractResult } from './open_rpc/result/extract_result.ts';
 import type { MethodOrReference, OpenRpcDocument } from './open_rpc/open_rpc_document.ts';
-import type { ValidatedOpenRpcDocument } from './open_rpc/validated_open_rpc_document.ts';
+import { validatedOpenRpcDocument, type ValidatedOpenRpcDocument } from './open_rpc/validated_open_rpc_document.ts';
 
 interface JsonRpcClientOptions {
   token? : string
@@ -14,7 +14,7 @@ interface JsonRpcClientOptions {
  */
 export class JsonRpcClient<Schema extends OpenRpcDocument> extends EventTarget {
   private readonly ws : WebSocket;
-  private readonly schema : ValidatedOpenRpcDocument<Schema>;
+  private readonly schema : Schema;
   
   constructor(
     url : string,
@@ -23,7 +23,7 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends EventTarget {
   ) {
     super();
 
-    this.schema = schema
+    this.schema = validatedOpenRpcDocument(schema);
 
     this.ws = new WebSocket(url, {
       headers: options?.token ? { Authorization: `Bearer ${options.token}` } : undefined

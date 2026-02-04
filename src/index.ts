@@ -5,4 +5,7 @@ import { validatedOpenRpcDocument } from './open_rpc/validated_open_rpc_document
 
 validatedOpenRpcDocument(schema)
 
-new JsonRpcClient('', schema).call('minecraft:server/system_message', {message: {literal: ''}})
+const client = new JsonRpcClient('', schema)
+ 
+client.call('minecraft:allowlist/add', [{name: 'ReloadIt'}])
+

@@ -14,14 +14,13 @@ export type ValidatedOpenRpcDocument<Schema extends OpenRpcDocument> = HasInvali
   : Schema;
 
 /**
- * Helper function to define and validate an OpenRPC schema at compile-time.
- * TypeScript will show an error if any $ref points to a non-existent component.
+ * Helper function to define and validate an OpenRPC schema.
  * 
- * @param schema The OpenRPC schema with 'as const' assertion
+ * @param schema OpenRPC schema with 'as const' assertion
  * @returns The validated schema
  */
-export function validatedOpenRpcDocument<Schema extends OpenRpcDocument>(
-  schema : ValidatedOpenRpcDocument<Schema>
-) : ValidatedOpenRpcDocument<Schema> {
-  return schema;
+export function validatedOpenRpcDocument<
+  Schema extends OpenRpcDocument
+>(schema : ValidatedOpenRpcDocument<Schema>) : Schema {
+  return schema as Schema;
 }
