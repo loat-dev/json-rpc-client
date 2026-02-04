@@ -1,15 +1,26 @@
-import type {OpenRpcDocument} from './spec.ts';
+import type { OpenRpcDocument } from './spec.ts';
 
 /**
- * This type generic resolves the given $ref from the components
+ * Resolves a JSON Schema $ref string to its actual type definition.
+ * Supports references to any component type in the OpenRPC schema.
+ * 
+ * @template Schema The OpenRPC document schema
+ * @template Ref The $ref string to resolve (e.g., "#/components/schemas/player")
+ * 
+ * @example
+ * ```ts
+ * type PlayerRef = ResolveRef<Schema, "#/components/schemas/player">
+ * ```
  */
 export type ResolveRef<
   Schema extends OpenRpcDocument,
   Ref extends string
-> = Ref extends `#/components/${"schemas" | "contentDescriptors" | "errors" | "examples" | "examplePairings" | "links" | "tags"}/${infer SchemaName}`
-  ? Schema extends { components: { schemas: infer Schemas } }
-    ? SchemaName extends keyof Schemas
-      ? Schemas[SchemaName]
+> = Ref extends `#/components/${infer ComponentType}/${infer ComponentName}`
+  ? ComponentType extends keyof NonNullable<Schema['components']>
+    ? NonNullable<Schema['components']>[ComponentType] extends infer Components
+      ? ComponentName extends keyof Components
+        ? Components[ComponentName]
+        : never
       : never
     : never
   : never;
