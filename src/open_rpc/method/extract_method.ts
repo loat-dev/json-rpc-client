@@ -1,4 +1,4 @@
-import type { ExtractMethodNamesWithResult } from './extract_method_names_with_result.ts';
+import type { ExtractMethodNames } from './extract_method_names_with_result.ts';
 import type { OpenRpcDocument } from '../open_rpc_document.ts';
 
 /**
@@ -14,7 +14,7 @@ import type { OpenRpcDocument } from '../open_rpc_document.ts';
  */
 export type ExtractMethod<
   Schema extends OpenRpcDocument,
-  MethodName extends ExtractMethodNamesWithResult<Schema>
+  MethodName extends ExtractMethodNames<Schema>
 > = Schema extends { methods : readonly (infer MethodsArray)[] }
   ? Extract<MethodsArray, { name : MethodName }>
   : never;
