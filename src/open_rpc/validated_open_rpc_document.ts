@@ -1,6 +1,6 @@
 import type { CollectInvalidRefs } from './ref/collect_invalid_refs.ts';
 import type { HasInvalidRefs } from './ref/has_invalid_refs.ts';
-import type { OpenRpcDocument } from './spec.ts';
+import type { OpenRpcDocument } from './open_rpc_document.ts';
 
 
 /**

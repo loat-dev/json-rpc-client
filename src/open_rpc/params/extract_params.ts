@@ -1,5 +1,5 @@
 import type { ResolveMethodType } from '../method/resolve_method_types.ts';
-import type { MethodOrReference, OpenRpcDocument } from '../spec.ts';
+import type { MethodOrReference, OpenRpcDocument } from '../open_rpc_document.ts';
 
 /**
  * Extracts and resolves parameter types for a method.
