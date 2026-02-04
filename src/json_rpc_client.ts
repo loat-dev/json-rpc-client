@@ -37,8 +37,8 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends EventTarget {
       this.dispatchEvent(event);
     });
 
-    this.ws.addEventListener("error", (ev) => {
-      this.dispatchEvent(ev);
+    this.ws.addEventListener("error", (event) => {
+      this.dispatchEvent(event);
     });
 
     this.ws.addEventListener("message", (event) => {
@@ -53,6 +53,7 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends EventTarget {
     method : Name,
     ...params : ExtractParams<Schema, Method>
   ): Promise<ExtractResult<Schema, Method>> {
+    this.schema.info
     console.log(method, ...params);
     
     return new Promise(() => {})

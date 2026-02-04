@@ -5,4 +5,4 @@ import { validatedOpenRpcDocument } from './open_rpc/validated_open_rpc_document
 
 validatedOpenRpcDocument(schema)
 
-new JsonRpcClient('', schema).call('minecraft:bans/add', [{player: {name: ''}, reason: ''}])
+new JsonRpcClient('', schema).call('minecraft:server/system_message', {message: {literal: ''}})
