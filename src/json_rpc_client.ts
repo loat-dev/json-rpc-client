@@ -6,6 +6,10 @@ import type { ExtractRequestMethodNames } from './open_rpc/method/extract_reques
 import type { ExtractNotificationMethodNames } from './open_rpc/method/extract_notification_method_names.ts';
 import { validatedOpenRpcDocument, type ValidatedOpenRpcDocument } from './open_rpc/validated_open_rpc_document.ts';
 
+
+/**
+ * Options for the JsonRpcClient.
+ */
 interface JsonRpcClientOptions {
   token? : string
 }
