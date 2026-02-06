@@ -11,14 +11,14 @@ import { CustomEventTarget, type CustomEventListenerOrCustomEventListenerObject 
 /**
  * Options for the JsonRpcClient.
  */
-interface JsonRpcClientOptions {
+interface ClientOptions {
   token? : string
 }
 
 /**
  * @template Schema OpenRPC document schema
  */
-export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTarget {
+export class Client<Schema extends OpenRpcDocument> extends CustomEventTarget {
   private readonly ws : WebSocket;
   private readonly schema : Schema;
   private requestId : number = 0;
@@ -26,7 +26,7 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTa
   constructor(
     url : string,
     schema : ValidatedOpenRpcDocument<Schema>,
-    options? : JsonRpcClientOptions
+    options? : ClientOptions
   ) {
     super();
 
