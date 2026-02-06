@@ -67,12 +67,10 @@ export interface ErrorObject {
    */
   // deno-lint-ignore ban-types
   code : ReservedErrorCodes | (number & {})
-
   /**
    * A String providing a short description of the error.
    */
   message : string
-
   /**
    * A Primitive or Structured value that contains additional information about the error.
    */
@@ -87,6 +85,14 @@ export interface ResponseObject extends JsonRpcObject {
    * The value of this member is determined by the method invoked on the Server.
    */
   result : any,
-
+  /**
+   * The value for this member MUST be an {@link ErrorObject}.
+   */
   error : ErrorObject
+  /**
+   * It MUST be the same as the value of the id member in the Request Object.
+   * If there was an error in detecting the id in the Request object (e.g. Parse error/Invalid Request),
+   * it MUST be Null.
+   */
+  id : number | null
 }
