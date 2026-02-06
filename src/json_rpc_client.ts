@@ -74,7 +74,7 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTa
     listener : CustomEventListenerOrCustomEventListenerObject<ExtractParams<Schema, ExtractMethod<Schema, MethodName>>> | null,
     options? : boolean | AddEventListenerOptions
   ) : void {
-    
+    super.addEventListener(type, listener, options);
   }
 
   override removeEventListener<MethodName extends ExtractNotificationMethodNames<Schema>>(
@@ -82,6 +82,6 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTa
     listener : CustomEventListenerOrCustomEventListenerObject<ExtractParams<Schema, ExtractMethod<Schema, MethodName>>> | null,
     options? : boolean | EventListenerOptions
   ) : void {
-    
+    super.removeEventListener(type, listener, options);
   }
 }
