@@ -54,7 +54,7 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTa
     });
   }
   private handleMessage(event : MessageEvent) : void {
-    console.log(event.data);
+    console.log(JSON.parse(event.data));
   }
 
   public call<
