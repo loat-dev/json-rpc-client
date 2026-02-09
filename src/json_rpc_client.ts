@@ -6,45 +6,46 @@ import type { ExtractRequestMethodNames } from './open_rpc/method/extract_reques
 import type { ExtractNotificationMethodNames } from './open_rpc/method/extract_notification_method_names.ts';
 import { validatedOpenRpcDocument, type ValidatedOpenRpcDocument } from './open_rpc/validated_open_rpc_document.ts';
 import { CustomEventTarget, type CustomEventListenerOrCustomEventListenerObject } from './custom_event_target.ts';
-import type { ErrorObject, NotificationObject, RequestObject, ResponseObject } from './json_rpc/json_rpc_object.ts';
-import type { ExtractMethodNames } from './open_rpc/method/extract_method_names.ts';
+import type { NotificationObject, RequestObject, ResponseObject } from './json_rpc/json_rpc_object.ts';
+import type { PendingRequest } from './json_rpc/pending_requests.ts';
+import type { IncomingMessage } from './json_rpc/incoming_message.ts';
+import { isNotification } from './json_rpc/is_notification.ts';
+import { isResponse } from './json_rpc/is_response.ts';
 
 
 /**
  * Options for the JsonRpcClient.
  */
 interface ClientOptions {
+  /**
+   * Optional authentication token for WebSocket connection.
+   */
   token? : string
 }
 
-
 /**
- * Internal structure to track pending requests
- */
-interface PendingRequest<
-  Schema extends OpenRpcDocument,
-  MethodName extends ExtractRequestMethodNames<Schema>
-> {
-  resolve : (value : ExtractResult<Schema, ExtractMethod<Schema, MethodName>>) => void;
-  reject : (error : ErrorObject) => void;
-}
-
-/**
- * Incoming message types from the server
- */
-type IncomingMessage<Schema extends OpenRpcDocument> =
-  | ResponseObject<Schema, ExtractMethodNames<Schema>>
-  | NotificationObject<Schema, ExtractNotificationMethodNames<Schema>>;
-
-
-/**
+ * JSON-RPC 2.0 WebSocket client with full type safety based on OpenRPC schema.
+ * 
  * @template Schema OpenRPC document schema
+ * 
+ * @example
+ * ```ts
+ * const client = new Client('ws://localhost:8080', schema);
+ * 
+ * // Type-safe method calls
+ * const result = await client.call('minecraft:allowlist');
+ * 
+ * // Type-safe event listeners
+ * client.addEventListener('minecraft:notification/server/started', (event) => {
+ *   console.log('Server started');
+ * });
+ * ```
  */
 export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTarget {
   private readonly ws : WebSocket;
   private readonly pendingRequests : Map<
-  number,
-  PendingRequest<Schema, ExtractRequestMethodNames<Schema>>
+    number,
+    PendingRequest<Schema, ExtractRequestMethodNames<Schema>>
   > = new Map();
   private requestId : number = 0;
   public readonly schema : Schema;
@@ -87,18 +88,6 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTa
     });
   }
 
-  private isNotification(
-    data : IncomingMessage<Schema>
-  ) : data is NotificationObject<Schema, ExtractNotificationMethodNames<Schema>> {
-    return 'method' in data && !('id' in data);
-  }
-
-  private isResponse(
-    data : IncomingMessage<Schema>
-  ) : data is ResponseObject<Schema, ExtractRequestMethodNames<Schema>> {
-    return 'id' in data;
-  }
-
   private handleNotification(data : NotificationObject<Schema, ExtractNotificationMethodNames<Schema>>) : void {
     const event = new CustomEvent(data.method, {
       detail: data.params || []
@@ -127,12 +116,12 @@ export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTa
     try {
       const data : IncomingMessage<Schema> = JSON.parse(event.data);
       
-      if (this.isNotification(data)) {
+      if (isNotification(data)) {
         this.handleNotification(data);
         return;
       }
 
-      if (this.isResponse(data)) {
+      if (isResponse(data)) {
         this.handleResponse(data);
         return;
       }
