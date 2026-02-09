@@ -40,7 +40,7 @@ type IncomingMessage<Schema extends OpenRpcDocument> =
 /**
  * @template Schema OpenRPC document schema
  */
-export class Client<Schema extends OpenRpcDocument> extends CustomEventTarget {
+export class JsonRpcClient<Schema extends OpenRpcDocument> extends CustomEventTarget {
   private readonly ws : WebSocket;
   private readonly pendingRequests : Map<
   number,
