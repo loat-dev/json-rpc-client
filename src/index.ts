@@ -7,7 +7,7 @@ validatedOpenRpcDocument(schema)
 
 const client = new Client('', schema)
  
-client.call('minecraft:allowlist')
+client.call('minecraft:server/status').then((response) => {response.players})
 
 client.addEventListener('minecraft:notification/allowlist/added', (event) => {
   event.detail.forEach((player) => {
